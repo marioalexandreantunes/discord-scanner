@@ -1,6 +1,7 @@
 # Discord Scanner
 
 A Python script to scan for potential Discord injections and malicious activities.
+After reading several texts about injection on discord, and verifying existing patterns in several injection code cases, this is proof of concept only.
 
 ## Installation
 
@@ -23,14 +24,10 @@ To run the Discord Scanner, simply execute the following command:
 python main.py
 ```
 
-## make an exe
+## Or make an exe file
 
 ```bash
 pyinstaller --add-data "myenv\Lib\site-packages\pyfiglet;./pyfiglet" --onefile --icon=assets\app.ico main.py --name=discord_scanner.exe
 ```
 
-June 2024
-
-```
-
-```
+# June 2024
