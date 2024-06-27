@@ -40,8 +40,13 @@ def main() -> None:
             input("Press enter to exit...")
             return
 
-    js_files = glob.glob(os.path.join(
-        discord_directory, '**/*.js'), recursive=True)
+    # Update the glob pattern to include .asar files
+    js_files = glob.glob(os.path.join(discord_directory, '**/*.js'), recursive=True)
+    asar_files = glob.glob(os.path.join(discord_directory, '**/*.asar'), recursive=True)
+    
+    # Combine the js_files and asar_files lists
+    all_files = js_files + asar_files
+
 
     print(colored(
         f"Searching for last changed JavaScript files in {discord_directory}", 'green'))
@@ -49,7 +54,7 @@ def main() -> None:
         f"Searching for 'injection code words' in .js and .asar files in {discord_directory}", 'green'))
     print("=========================================================================")
 
-    for file in js_files:
+    for file in all_files:
         modification_time = os.path.getmtime(file)
         # Discord Injection Warnings:
             # https://github.com/can-kat/cstealer
@@ -62,24 +67,24 @@ def main() -> None:
         # check if the file contains any possible injection code words (like 'discord injection', 'WEBHOOK', or 'discord API URLs')
         if file.endswith(".js") or file.endswith(".asar"):
             # read all file content and check if exist possible 'injection code words'
-            with open(file, 'r') as f:
+            with open(file, 'r', errors="ignore") as f:
                 content = f.read()
-                if 'process.env' in content and 'discord_desktop_core' in file:
+                if 'process.env.mod' in content and 'discord_desktop_core' in file:
                     print(
                         colored(f"'process.env' is being used, code found in {file}", 'yellow'))
-                if 'email' in content:
+                if 'stealer' in content:
                     print(
-                        colored(f"'email' is being used, code found in {file}", 'yellow'))
-                if '/cdn' in content:
+                        colored(f"'steal' is being used, code found in {file}", 'yellow'))
+                if '/cdn.' in content and 'http' in content:
                     print(
                         colored(f"'cdn' is being used, code found in {file}", 'yellow'))
                 if 'discord injection' in content:
                     print(colored(f"Injection code found in {file}", 'yellow'))
                 if 'WEBHOOK' in content:
                     print(colored(f"WEBHOOK found in {file}", 'yellow'))
-                if 'https:' in content and 'discord.com/api' in content:
-                    print(colored(f"urls found in {file}", 'yellow'))
-                if 'discord_desktop_core' in file:
+                if 'defender.' in content:
+                    print(colored(f"'defender.' found in {file}", 'yellow'))
+                if 'discord_desktop_core' in file and file.endswith(".js"):
                     # check if exist more than one line
                     # For the %AppData%\Discord\[version]\modules\discord_desktop_core\index.js file,
                     # it should only contain the "module.exports = require('./core.asar');"
