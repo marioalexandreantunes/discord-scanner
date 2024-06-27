@@ -19,12 +19,18 @@ Once Python is installed, follow these steps:
 
 To run the Discord Scanner, simply execute the following command:
 
-`````bash
+```bash
 python main.py
+```
 
 ## make an exe
-````bash
+
+```bash
 pyinstaller --add-data "myenv\Lib\site-packages\pyfiglet;./pyfiglet" --onefile --icon=assets\app.ico main.py --name=discord_scanner.exe
+```
 
 June 2024
-`````
+
+```
+
+```
