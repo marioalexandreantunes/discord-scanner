@@ -37,6 +37,7 @@ def main() -> None:
         else:
             print(colored(
                 f"Discord canary directory not found at {discord_canary_directory}", 'red'))
+            input("Press enter to exit...")
             return
 
     js_files = glob.glob(os.path.join(
